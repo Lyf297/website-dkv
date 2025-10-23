@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Karya Siswa | DKV SMKN 1 Singgahan</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navbar -->
+  <header class="site-header">
+    <nav class="nav">
+      <a class="brand" href="/l"><span style="color: tomato;">D</span><span style="color: blue;">K</span><span style="color: red;">V</span></a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="tentang.html">About</a></li>
+        <li><a class="active" href="karya.html">Project</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+    <!-- End Navbar -->
+
+  <main>
+    <h2>Upload Karya Siswa</h2>
+    <form id="uploadForm">
+      <input type="text" id="namaKarya" placeholder="Nama Karya" required>
+      <input type="text" id="namaSiswa" placeholder="Nama Siswa" required>
+      <input type="text" id="kelas" placeholder="Kelas" required>
+      <input type="file" id="fileUpload" accept="image/*" required>
+      <button type="submit">Upload Karya</button>
+    </form>
+
+    <section>
+      <h2>Galeri Karya</h2>
+      <div id="galleryGrid"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 DKV SMKN 1 Singgahan. Semua hak dilindungi.</p>
+  </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="app.js"></script>
+
+</body>
+</html>
