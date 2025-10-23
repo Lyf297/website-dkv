@@ -2,7 +2,6 @@
 // Ganti dengan kredensial proyek kamu
 const SUPABASE_URL = "https://uuhmzdzbqercxcbxucxi.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV1aG16ZHpicWVyY3hjYnh1Y3hpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjExMDAzNTksImV4cCI6MjA3NjY3NjM1OX0.KJ05INGONvh5gv_eqfkiTDkrP5mhIn0NfjXMS4DLPCE";
-
 // Pastikan library Supabase sudah dimuat di HTML:
 // <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
