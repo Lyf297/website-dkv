@@ -78,7 +78,7 @@ async function loadGallery() {
             onclick="showDetail('${k.url}', '${k.nama_karya.replace(/'/g, "\\'")}', '${k.nama_siswa.replace(/'/g, "\\'")}', '${k.kelas}', ${k.id}, '${(k.deskripsi || '').replace(/'/g, "\\'")}')">
           <h4>${k.nama_karya}</h4>
           <p>${k.nama_siswa} - ${k.kelas}</p>
-          <button class="delete-btn" onclick="openDeleteModal(${k.id})">🗑️ Hapus</button>
+          <button class="delete-btn" onclick="openDeleteModal(${k.id})">Hapus</button>
         </div>
       `
     )
@@ -158,6 +158,12 @@ document.getElementById("confirmDeleteBtn").addEventListener("click", async () =
   }
 });
 
+
+document.getElementById("cancelDeleteBtn").addEventListener("click", closeDeleteModal);
+
+function closeDeleteModal() {
+  document.getElementById("deleteModal").style.display = "none";
+}
 // === TOAST NOTIFIKASI ===
 function showToast(message) {
   let toast = document.createElement("div");

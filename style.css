@@ -97,6 +97,8 @@ main {
   box-shadow: 0 4px 8px var(--shadow);
 }
 
+/* end logo */
+
 section {
   margin-bottom: 2rem;
   opacity: 0;
@@ -206,6 +208,33 @@ button:hover {
   opacity: 0.85;
 }
 
+/* Tombol hapus di tiap karya */
+
+.gallery-item .delete-btn {
+  background-color: #c92a36;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 6px;
+  display: inline-block;
+}
+
+.gallery-item .delete-btn:hover {
+  background-color: #d93636;
+  transform: scale(1.05);
+}
+
+/*tombol muncul rapi di bawah teks */
+.gallery-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
 /* ===== Contact ==== */
 
 
@@ -342,6 +371,42 @@ footer {
 
 .modal-actions button.cancel:hover {
   background: #bbb;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.modal-buttons button {
+  flex: 1;
+  padding: 10px 15px;
+  font-size: 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+
+#cancelDeleteBtn {
+  background: #ddd;
+  color: #333;
+}
+
+#cancelDeleteBtn:hover {
+  background: #ccc;
+}
+
+#confirmDeleteBtn {
+  background: #e63946;
+  color: white;
+}
+
+#confirmDeleteBtn:hover {
+  background: #c92a36;
 }
 
 .toast {
