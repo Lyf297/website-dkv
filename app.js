@@ -86,6 +86,33 @@ async function loadGallery() {
 }
 loadGallery();
 
+// === KIRIM PESAN KE SUPABASE ===
+const messageForm = document.getElementById("messageForm");
+if (messageForm) {
+  messageForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const nama = document.getElementById("nama").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const pesan = document.getElementById("pesan").value.trim();
+
+    if (!nama || !email || !pesan) {
+      showToast("⚠️ Semua kolom wajib diisi!");
+      return;
+    }
+
+    const { error } = await supabase.from("pesan").insert([{ nama, email, pesan }]);
+
+    if (error) {
+      console.error("Supabase insert error:", error);
+      showToast("❌ Pesan gagal dikirim!");
+    } else {
+      showToast("✅ Pesan berhasil dikirim!");
+      messageForm.reset();
+    }
+  });
+}
+
 // === DETAIL MODAL ===
 function showDetail(url, namaKarya, namaSiswa, kelas, id, deskripsi) {
   document.getElementById("detailImg").src = url;
@@ -111,7 +138,7 @@ function closeDeleteModal() {
   document.getElementById("deleteModal").style.display = "none";
 }
 
-document.getElementById("confirmDeleteBtn").addEventListener("click", async () => {
+document.getElementById("confirmDeleteBtn")?.addEventListener("click", async () => {
   const inputPassword = document.getElementById("deletePassword").value.trim();
   const { id } = deleteTarget;
   const parsedId = parseInt(id);
@@ -158,12 +185,8 @@ document.getElementById("confirmDeleteBtn").addEventListener("click", async () =
   }
 });
 
+document.getElementById("cancelDeleteBtn")?.addEventListener("click", closeDeleteModal);
 
-document.getElementById("cancelDeleteBtn").addEventListener("click", closeDeleteModal);
-
-function closeDeleteModal() {
-  document.getElementById("deleteModal").style.display = "none";
-}
 // === TOAST NOTIFIKASI ===
 function showToast(message) {
   let toast = document.createElement("div");
