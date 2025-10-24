@@ -24,6 +24,7 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   animation: fadeIn 0.8s ease-in;
+  min-height: 100vh;
 }
 
 /* ================= NAVBAR ================= */
@@ -80,7 +81,7 @@ main {
   margin: 2rem auto;
   background: var(--white);
   padding: 2rem;
-  border-radius: 14px;
+  border-radius: 20px;
   box-shadow: 0 4px 10px var(--shadow);
   animation: fadeUp 0.8s ease-out;
 }
@@ -128,16 +129,21 @@ form {
   display: flex;
   flex-direction: column;
   gap: 0.8rem;
-  margin-top: 1rem;
+  /* margin-top: 1rem;*/
   animation: fadeIn 1s ease;
 }
 
 input, textarea {
   padding: 0.8rem;
-  border: 1px solid #ccc;
+  border: 3px solid rgba(37, 99, 235, 0.15);
   border-radius: 15px;
   font-size: 1rem;
   transition: all 0.3s ease;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 80px;
 }
 
 input:focus, textarea:focus {
@@ -202,8 +208,7 @@ button:hover {
 
 /* ===== Contact ==== */
 
-#massageForm {
-}
+
 
 /* ===== Footer ===== */
 footer {
@@ -247,4 +252,113 @@ footer {
   #galleryGrid img {
     height: 150px;
   }
+}
+
+/* ===== Modal Detail ===== */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: #fff;
+  border-radius: 15px;
+  padding: 1rem 1.5rem;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+  animation: fadeUp 0.4s ease;
+}
+
+.modal-content img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
+.close {
+  position: absolute;
+  top: 10px; right: 20px;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: #333;
+}
+
+/* ===== Modal Hapus ===== */
+.modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 1rem;
+}
+
+.modal-content h3 {
+  margin-bottom: 0.5rem;
+  color: var(--primary);
+}
+
+.modal-content input[type="password"] {
+  width: 100%;
+  padding: 0.7rem;
+  border: 2px solid rgba(37, 99, 235, 0.2);
+  border-radius: 10px;
+  outline: none;
+  font-size: 1rem;
+}
+
+.modal-content input[type="password"]:focus {
+  border-color: var(--secondary);
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+.modal-actions button {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.modal-actions button#confirmDeleteBtn {
+  background: #dc3545;
+  color: white;
+}
+
+.modal-actions button#confirmDeleteBtn:hover {
+  background: #c82333;
+}
+
+.modal-actions button.cancel {
+  background: #ccc;
+}
+
+.modal-actions button.cancel:hover {
+  background: #bbb;
+}
+
+.toast {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.9);
+  background: #333;
+  color: #fff;
+  padding: 12px 22px;
+  border-radius: 10px;
+  font-size: 14px;
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 9999;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
 }
