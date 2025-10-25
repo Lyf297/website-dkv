@@ -14,6 +14,7 @@ if (uploadForm) {
     const kelas = document.getElementById("kelas").value.trim();
     const deskripsi = document.getElementById("deskripsi").value.trim();
     const passwordKarya = document.getElementById("passwordKarya").value.trim();
+    const kategori = document.getElementById("kategori").value.trim();
     const file = document.getElementById("fileUpload").files[0];
 
     if (!file) return showToast("⚠️ Pilih file gambar terlebih dahulu!");
@@ -44,6 +45,7 @@ if (uploadForm) {
         password: passwordKarya,
         url: publicUrl,
         file_path: realPath,
+        kategori: kategori,
       },
     ]);
 
@@ -85,6 +87,60 @@ async function loadGallery() {
 }
 loadGallery();
 
+let allKarya = [];
+
+async function loadGallery() {
+  const galleryGrid = document.getElementById("galleryGrid");
+  if (!galleryGrid) return;
+
+  const { data, error } = await supabase
+    .from("karya")
+    .select("*")
+    .order("id", { ascending: false });
+
+  if (error) {
+    galleryGrid.innerHTML = "<p>Gagal memuat galeri.</p>";
+    return;
+  }
+
+  allKarya = data; // simpan semua data biar bisa difilter
+  renderGallery(data);
+}
+
+// Fungsi render sesuai data
+function renderGallery(items) {
+  const galleryGrid = document.getElementById("galleryGrid");
+  galleryGrid.innerHTML = items
+    .map((k) => {
+      const isVideo = k.url.endsWith(".mp4") || k.kategori === "video";
+      const mediaElement = isVideo
+        ? `<video src="${k.url}" controls></video>`
+        : `<img src="${k.url}" alt="${k.nama_karya}" onclick="showDetail('${k.url}', '${k.nama_karya.replace(/'/g, "\\'")}', '${k.nama_siswa.replace(/'/g, "\\'")}', '${k.kelas}', ${k.id}, '${(k.deskripsi || '').replace(/'/g, "\\'")}')">`;
+
+      return `
+        <div class="gallery-item">
+          ${mediaElement}
+          <h4>${k.nama_karya}</h4>
+          <p>${k.nama_siswa} - ${k.kelas}</p>
+        </div>
+      `;
+    })
+    .join("");
+}
+
+// Fungsi filter kategori
+function filterGallery(kategori) {
+  const buttons = document.querySelectorAll(".kategori-nav button");
+  buttons.forEach((btn) => btn.classList.remove("active"));
+  event.target.classList.add("active");
+
+  if (kategori === "semua") {
+    renderGallery(allKarya);
+  } else {
+    const filtered = allKarya.filter((k) => k.kategori === kategori);
+    renderGallery(filtered);
+  }
+}
 // === HAPUS KARYA BERDASARKAN NAMA DAN PASSWORD ===
 const deleteForm = document.getElementById("deleteForm");
 if (deleteForm) {

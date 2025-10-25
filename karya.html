@@ -23,19 +23,40 @@
 
   <main>
     
-    <section>
-      <h2>Galeri Karya</h2>
-      <div id="galleryGrid"></div>
-    </section>
+<section>
+  <h2>Galeri Karya</h2>
+
+  <!-- Navbar Kategori -->
+  <div class="kategori-nav">
+    <button onclick="filterGallery('semua')" class="active">Semua</button>
+    <button onclick="filterGallery('foto')">Foto</button>
+    <button onclick="filterGallery('poster')">Poster</button>
+    <button onclick="filterGallery('logo')">Logo</button>
+    <button onclick="filterGallery('gambar')">Gambar</button>
+    <button onclick="filterGallery('video')">Video</button>
+  </div>
+
+  <div id="galleryGrid"></div>
+</section>
     
     <h2>Upload Karya Siswa</h2>
 <form id="uploadForm">
   <input type="text" id="namaKarya" placeholder="Nama Karya" required>
   <input type="text" id="namaSiswa" placeholder="Nama Siswa" required>
   <input type="text" id="kelas" placeholder="Kelas" required>
+
+  <select id="kategori" required>
+    <option value="">Pilih Kategori</option>
+    <option value="foto">Foto</option>
+    <option value="poster">Poster</option>
+    <option value="logo">Logo</option>
+    <option value="gambar">Gambar</option>
+    <option value="video">Video</option>
+  </select>
+
   <textarea id="deskripsi" placeholder="Deskripsi Karya (opsional)" rows="3"></textarea>
   <input type="password" id="passwordKarya" placeholder="Password Karya" required>
-  <input type="file" id="fileUpload" accept="image/*" required>
+  <input type="file" id="fileUpload" accept="image/*,video/*" required>
   <button type="submit">Upload Karya</button>
 </form>
     
