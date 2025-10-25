@@ -78,7 +78,6 @@ async function loadGallery() {
             onclick="showDetail('${k.url}', '${k.nama_karya.replace(/'/g, "\\'")}', '${k.nama_siswa.replace(/'/g, "\\'")}', '${k.kelas}', ${k.id}, '${(k.deskripsi || '').replace(/'/g, "\\'")}')">
           <h4>${k.nama_karya}</h4>
           <p>${k.nama_siswa} - ${k.kelas}</p>
-          <button class="delete-btn" onclick="openDeleteModal(${k.id})">Hapus</button>
         </div>
       `
     )
@@ -86,6 +85,68 @@ async function loadGallery() {
 }
 loadGallery();
 
+// === HAPUS KARYA BERDASARKAN NAMA DAN PASSWORD ===
+const deleteForm = document.getElementById("deleteForm");
+if (deleteForm) {
+  deleteForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const namaKarya = document.getElementById("deleteNamaKarya").value.trim();
+    const password = document.getElementById("deletePasswordKarya").value.trim();
+
+    if (!namaKarya || !password) {
+      showToast("⚠️ Isi nama karya dan password!");
+      return;
+    }
+
+    // Cari karya yang cocok persis berdasarkan nama (1 hasil aja)
+    const { data: karyaData, error: fetchError } = await supabase
+      .from("karya")
+      .select("id, nama_karya, password, file_path")
+      .eq("nama_karya", namaKarya)
+      .single();
+
+    if (fetchError || !karyaData) {
+      console.error("Fetch error:", fetchError);
+      showToast("❌ Karya tidak ditemukan!");
+      return;
+    }
+
+    // Cek password (rapi dan toleran)
+    if (karyaData.password?.trim() !== password.trim()) {
+      showToast("⚠️ Password salah!");
+      return;
+    }
+
+    // Hapus file di storage
+    if (karyaData.file_path) {
+      const { error: storageError } = await supabase
+        .storage
+        .from("karya-siswa")
+        .remove([karyaData.file_path]);
+
+      if (storageError) {
+        console.warn("Gagal hapus file:", storageError.message);
+        showToast("⚠️ File gagal dihapus dari storage, lanjut hapus data...");
+      }
+    }
+
+    // Hapus dari database
+    const { error: delError } = await supabase
+      .from("karya")
+      .delete()
+      .match({ id: karyaData.id });
+
+    if (delError) {
+      console.error("Delete error:", delError);
+      showToast("❌ Gagal menghapus karya dari database!");
+    } else {
+      showToast("✅ Karya berhasil dihapus!");
+      deleteForm.reset();
+      loadGallery();
+    }
+  });
+}
 // === KIRIM PESAN KE SUPABASE ===
 const messageForm = document.getElementById("messageForm");
 if (messageForm) {
@@ -126,66 +187,6 @@ function showDetail(url, namaKarya, namaSiswa, kelas, id, deskripsi) {
 function closeModal() {
   document.getElementById("detailModal").style.display = "none";
 }
-
-// === MODAL HAPUS ===
-let deleteTarget = { id: null };
-function openDeleteModal(id) {
-  deleteTarget = { id };
-  document.getElementById("deletePassword").value = "";
-  document.getElementById("deleteModal").style.display = "flex";
-}
-function closeDeleteModal() {
-  document.getElementById("deleteModal").style.display = "none";
-}
-
-document.getElementById("confirmDeleteBtn")?.addEventListener("click", async () => {
-  const inputPassword = document.getElementById("deletePassword").value.trim();
-  const { id } = deleteTarget;
-  const parsedId = parseInt(id);
-
-  if (!inputPassword) return showToast("⚠️ Password wajib diisi!");
-
-  const { data, error } = await supabase
-    .from("karya")
-    .select("password, file_path")
-    .match({ id: parsedId })
-    .single();
-
-  if (error || !data) {
-    showToast("❌ Gagal menemukan karya di database!");
-    return;
-  }
-
-  if (data.password !== inputPassword) {
-    showToast("⚠️ Password salah!");
-    return;
-  }
-
-  // Hapus file di storage
-  if (data.file_path) {
-    const { error: storageError } = await supabase
-      .storage
-      .from("karya-siswa")
-      .remove([data.file_path]);
-    if (storageError) console.warn("Gagal hapus file:", storageError.message);
-  }
-
-  // Hapus data di database
-  const { error: delError } = await supabase
-    .from("karya")
-    .delete()
-    .match({ id: parsedId });
-
-  if (delError) {
-    showToast("❌ Gagal menghapus karya dari database!");
-  } else {
-    showToast("✅ Karya berhasil dihapus!");
-    closeDeleteModal();
-    loadGallery();
-  }
-});
-
-document.getElementById("cancelDeleteBtn")?.addEventListener("click", closeDeleteModal);
 
 // === TOAST NOTIFIKASI ===
 function showToast(message) {

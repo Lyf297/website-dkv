@@ -39,6 +39,13 @@
   <button type="submit">Upload Karya</button>
 </form>
     
+    <h2 style="margin-top: 10px;">Hapus Karya Siswa</h2>
+<form id="deleteForm">
+  <input type="text" id="deleteNamaKarya" placeholder="Nama Karya" required>
+  <input type="password" id="deletePasswordKarya" placeholder="Password Karya" required>
+  <button type="submit">Hapus Karya</button>
+</form>
+    
     <div id="detailModal" class="modal">
   <div class="modal-content">
     <span class="close" onclick="closeModal()">&times;</span>
@@ -48,22 +55,9 @@
   </div>
 </div>
     
-    <!-- Modal Konfirmasi Hapus -->
-<div id="deleteModal" class="modal">
-  <div class="modal-content">
-    <h3>Konfirmasi Hapus</h3>
-    <p>Masukkan password karya untuk menghapus:</p>
-    <input type="password" id="deletePassword" placeholder="Password karya" />
-    <div class="modal-actions">
-      <button id="confirmDeleteBtn">Hapus</button>
-      <button id="cancelDeleteBtn" class="cancel">Batal</button>
-    </div>
-  </div>
-</div>
-
   </main>
 
-  <footer style="margin-top: 150px;">
+  <footer >
     <p>&copy; 2025 DKV SMKN 1 Singgahan.</p>
   </footer>
 
