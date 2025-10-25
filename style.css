@@ -236,7 +236,75 @@ button:hover {
   text-align: center;
 }
 /* ===== Contact ==== */
+/* ===== Contact Page Centered Layout ===== */
+.contact-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 
+.contact-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.contact-box {
+  background: var(--white);
+  padding: 2rem 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px var(--shadow);
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+  animation: fadeUp 0.8s ease-out;
+}
+
+.contact-box h2 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+.contact-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-box input,
+.contact-box textarea {
+  width: 100%;
+  padding: 0.9rem;
+  border: 2px solid rgba(37, 99, 235, 0.15);
+  border-radius: 12px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.contact-box input:focus,
+.contact-box textarea:focus {
+  outline: none;
+  border-color: var(--secondary);
+  box-shadow: 0 0 10px rgba(0,123,255,0.3);
+}
+
+.contact-box button {
+  padding: 0.8rem 1rem;
+  border: none;
+  border-radius: 12px;
+  background: var(--primary);
+  color: var(--white);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.contact-box button:hover {
+  background: var(--secondary);
+  transform: translateY(-2px);
+}
 
 
 /* ===== Footer ===== */

@@ -6,11 +6,11 @@
   <title>Kirim Pesan | DKV SMKN 1 Singgahan</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <!-- Navbar -->
+<body class="contact-page">
+  <!-- Navbar -->
   <header class="site-header">
     <nav class="nav">
-      <a class="brand" href="/l"><span style="color: tomato;">D</span><span style="color: blue;">K</span><span style="color: red;">V</span></a>
+      <a class="brand" href="/"><span style="color: tomato;">D</span><span style="color: blue;">K</span><span style="color: red;">V</span></a>
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
         <li><a href="tentang.html">About</a></li>
@@ -19,22 +19,24 @@
       </ul>
     </nav>
   </header>
-    <!-- End Navbar -->
 
-  <main style="margin-top: 200px;">
-    <h2>Kirim Pesan ke Jurusan DKV</h2>
-    <form id="messageForm">
-      <input type="text" id="nama" placeholder="Nama Anda" required>
-      <input type="email" id="email" placeholder="Email" required>
-      <textarea id="pesan" rows="5" placeholder="Tulis pesan Anda..." required></textarea>
-      <button type="submit">Kirim</button>
-    </form>
+  <main class="contact-container">
+    <div class="contact-box">
+      <h2>Kirim Pesan ke Jurusan DKV</h2>
+      <form id="messageForm">
+        <input type="text" id="nama" placeholder="Nama Anda" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <textarea id="pesan" rows="5" placeholder="Tulis pesan Anda..." required></textarea>
+        <button type="submit">Kirim</button>
+      </form>
+    </div>
   </main>
 
-  <footer style="margin-top: 200px;"> 
+  <footer>
     <p>&copy; 2025 DKV SMKN 1 Singgahan.</p>
   </footer>
- <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
   <script src="app.js"></script>
 </body>
 </html>
