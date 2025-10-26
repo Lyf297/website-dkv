@@ -107,23 +107,41 @@ async function loadGallery() {
   renderGallery(data);
 }
 
-// Fungsi render sesuai data
+// Fungsi render sesuai data (ganti yang lama)
 function renderGallery(items) {
   const galleryGrid = document.getElementById("galleryGrid");
+  if (!galleryGrid) return;
+
   galleryGrid.innerHTML = items
     .map((k) => {
-      const isVideo = k.url.endsWith(".mp4") || k.kategori === "video";
-      const mediaElement = isVideo
-        ? `<video src="${k.url}" controls></video>`
-        : `<img src="${k.url}" alt="${k.nama_karya}" onclick="showDetail('${k.url}', '${k.nama_karya.replace(/'/g, "\\'")}', '${k.nama_siswa.replace(/'/g, "\\'")}', '${k.kelas}', ${k.id}, '${(k.deskripsi || '').replace(/'/g, "\\'")}')">`;
+      const url = k.url || "";
+      const lower = url.toLowerCase();
+      const isVideo = lower.endsWith(".mp4") || lower.endsWith(".webm") || lower.endsWith(".ogg") || k.kategori === "video";
 
-      return `
-        <div class="gallery-item">
-          ${mediaElement}
-          <h4>${k.nama_karya}</h4>
-          <p>${k.nama_siswa} - ${k.kelas}</p>
-        </div>
-      `;
+      // escape single quotes untuk string JS inline
+      const esc = (str) => (str || "").replace(/'/g, "\\'").replace(/\n/g, " ");
+
+      if (isVideo) {
+        // thumbnail video tanpa controls — klik wrapper buka modal
+        return `
+          <div class="gallery-item">
+            <div class="video-wrapper" onclick="showDetail('${esc(url)}', '${esc(k.nama_karya)}', '${esc(k.nama_siswa)}', '${esc(k.kelas)}', ${k.id}, '${esc(k.deskripsi)}', 'video')">
+              <video src="${esc(url)}" muted playsinline preload="metadata"></video>
+            </div>
+            <h4>${k.nama_karya}</h4>
+            <p>${k.nama_siswa} - ${k.kelas}</p>
+          </div>
+        `;
+      } else {
+        return `
+          <div class="gallery-item">
+            <img src="${esc(url)}" alt="${esc(k.nama_karya)}"
+              onclick="showDetail('${esc(url)}', '${esc(k.nama_karya)}', '${esc(k.nama_siswa)}', '${esc(k.kelas)}', ${k.id}, '${esc(k.deskripsi)}', 'image')">
+            <h4>${k.nama_karya}</h4>
+            <p>${k.nama_siswa} - ${k.kelas}</p>
+          </div>
+        `;
+      }
     })
     .join("");
 }
@@ -231,17 +249,70 @@ if (messageForm) {
 }
 
 // === DETAIL MODAL ===
-function showDetail(url, namaKarya, namaSiswa, kelas, id, deskripsi) {
-  document.getElementById("detailImg").src = url;
-  document.getElementById("detailTitle").textContent = namaKarya;
-  document.getElementById("detailInfo").innerHTML = `
-    <strong>${namaSiswa}</strong> - ${kelas}<br><br>
-    <em>${deskripsi || "Tidak ada deskripsi."}</em>
-  `;
-  document.getElementById("detailModal").style.display = "flex";
+function showDetail(url, namaKarya, namaSiswa, kelas, id, deskripsi, tipe = 'image') {
+  const modal = document.getElementById("detailModal");
+  const img = document.getElementById("detailImg");
+  const title = document.getElementById("detailTitle");
+  const info = document.getElementById("detailInfo");
+
+  // reset modal content area
+  img.style.display = "none";
+  img.src = ""; // clear img src
+  // hapus video jika ada
+  const existingVideo = modal.querySelector("video.modal-video");
+  if (existingVideo) {
+    existingVideo.pause();
+    existingVideo.removeAttribute("src");
+    existingVideo.load();
+    existingVideo.remove();
+  }
+
+  title.textContent = namaKarya;
+  info.innerHTML = `<strong>${namaSiswa}</strong> - ${kelas}<br><br><em>${deskripsi || "Tidak ada deskripsi."}</em>`;
+
+  if (tipe === 'video') {
+    // buat elemen video di modal dengan controls
+    const videoEl = document.createElement("video");
+    videoEl.className = "modal-video";
+    videoEl.src = url;
+    videoEl.controls = true;
+    videoEl.autoplay = false; // jangan autoplay tanpa izin
+    videoEl.playsInline = true;
+    videoEl.preload = "metadata";
+    videoEl.style.width = "100%";
+    videoEl.style.borderRadius = "10px";
+    // sisipkan sebelum title supaya tampil di atas teks
+    const modalContent = document.querySelector("#detailModal .modal-content");
+    modalContent.insertBefore(videoEl, title);
+  } else {
+    // tampilkan gambar
+    img.src = url;
+    img.style.display = "block";
+  }
+
+  modal.style.display = "flex";
 }
+
+// close modal: pause & cleanup video
 function closeModal() {
-  document.getElementById("detailModal").style.display = "none";
+  const modal = document.getElementById("detailModal");
+  const existingVideo = modal.querySelector("video.modal-video");
+  if (existingVideo) {
+    try {
+      existingVideo.pause();
+      existingVideo.removeAttribute("src");
+      existingVideo.load();
+    } catch (err) {
+      console.warn("Error cleaning video:", err);
+    }
+    existingVideo.remove();
+  }
+  // clear img
+  const img = document.getElementById("detailImg");
+  img.src = "";
+  img.style.display = "none";
+
+  modal.style.display = "none";
 }
 
 // === TOAST NOTIFIKASI ===

@@ -205,6 +205,25 @@ button:hover {
 }
 
 /* ================= GALERI ================= */
+#galleryGrid img,
+#galleryGrid video {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-bottom: 3px solid var(--primary);
+  border-radius: 8px 8px 0 0;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+#galleryGrid video {
+  background: #000;
+}
+
+#galleryGrid img:hover,
+#galleryGrid video:hover {
+  opacity: 0.85;
+}
 #galleryGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
