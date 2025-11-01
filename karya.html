@@ -4,17 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Karya Siswa | DKV SMKN 1 Singgahan</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <!-- Navbar -->
   <header class="site-header">
     <nav class="nav">
-      <a class="brand" href="/l"><span style="color: tomato;">D</span><span style="color: blue;">K</span><span style="color: red;">V</span></a>
+      <img src="img/dkv.jpg" alt="Logo DKV" class="logo-navbar">
+      <!-- <a class="brand" href="/l"><span style="color: tomato;">D</span><span style="color: blue;">K</span><span style="color: red;">V</span></a> -->
       <ul class="nav-links">
         <li><a href="index.html">Home</a></li>
-        <li><a href="tentang.html">About</a></li>
-        <li><a class="active" href="karya.html">Project</a></li>
+        <li><a class="active" href="karya.html">Karya</a></li>
+        <li><a href="tentang.html">Tentang</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
     </nav>
@@ -27,46 +28,18 @@
   <h2>Galeri Karya</h2>
 
   <!-- Navbar Kategori -->
-  <div class="kategori-nav">
-    <button onclick="filterGallery('semua')" class="active">Semua</button>
-    <button onclick="filterGallery('foto')">Foto</button>
-    <button onclick="filterGallery('poster')">Poster</button>
-    <button onclick="filterGallery('logo')">Logo</button>
-    <button onclick="filterGallery('gambar')">Gambar</button>
-    <button onclick="filterGallery('video')">Video</button>
-    <button onclick="filterGallery('.')">Upload</button>
-  </div>
+<div class="kategori-nav">
+  <select id="kategoriFilter" onchange="filterGallery(this.value)">
+    <option value="semua">Semua</option>
+    <option value="karyaDesain">Karya Desain</option>
+    <option value="karyaVideo">Karya Video</option>
+    <option value="karyaFoto">Karya Foto</option>
+  </select>
+</div>
 
   <div id="galleryGrid"></div>
 </section>
     
-    <h2>Upload Karya Siswa</h2>
-<form id="uploadForm">
-  <input type="text" id="namaKarya" placeholder="Nama Karya" required>
-  <input type="text" id="namaSiswa" placeholder="Nama Siswa" required>
-  <input type="text" id="kelas" placeholder="Kelas" required>
-
-  <select id="kategori" required>
-    <option value="">Pilih Kategori</option>
-    <option value="foto">Foto</option>
-    <option value="poster">Poster</option>
-    <option value="logo">Logo</option>
-    <option value="gambar">Gambar</option>
-    <option value="video">Video</option>
-  </select>
-
-  <textarea id="deskripsi" placeholder="Deskripsi Karya (opsional)" rows="3"></textarea>
-  <input type="password" id="passwordKarya" placeholder="Password Karya" required>
-  <input type="file" id="fileUpload" accept="image/*,video/*" required>
-  <button type="submit">Upload Karya</button>
-</form>
-    
-    <h2 style="margin-top: 10px;">Hapus Karya Siswa</h2>
-<form id="deleteForm">
-  <input type="text" id="deleteNamaKarya" placeholder="Nama Karya" required>
-  <input type="password" id="deletePasswordKarya" placeholder="Password Karya" required>
-  <button type="submit">Hapus Karya</button>
-</form>
     
     <div id="detailModal" class="modal">
   <div class="modal-content">
@@ -84,7 +57,7 @@
   </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="app.js"></script>
+    <script src="js/app.js"></script>
 
 </body>
 </html>

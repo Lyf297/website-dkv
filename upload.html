@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Upload karya | DKV SMKN 1 Singgahan</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body> 
+  <!-- FORM -->
+  <section>
+<main>
+    <h2>Upload Karya Siswa</h2>
+<form id="uploadForm">
+  <input type="text" id="namaKarya" placeholder="Nama Karya" required>
+  <input type="text" id="namaSiswa" placeholder="Nama Siswa" required>
+  <input type="text" id="kelas" placeholder="Kelas" required>
+
+  <select id="kategori" required>
+    <option value="">Pilih Kategori</option>
+    <option value="karyaDesain">Karya Desain</option>
+    <option value="karyaVideo">Karya Video</option>
+    <option value="karyaFoto">Karya Foto</option>
+  </select>
+
+  <textarea id="deskripsi" placeholder="Deskripsi Karya (opsional)" rows="3"></textarea>
+  <input type="password" id="passwordKarya" placeholder="Password Karya" required>
+  <input type="file" id="fileUpload" accept="image/*,video/*" required>
+  <button type="submit">Upload Karya</button>
+</form>
+    
+    <h2 style="margin-top: 10px;">Hapus Karya Siswa</h2>
+<form id="deleteForm">
+  <input type="text" id="deleteNamaKarya" placeholder="Nama Karya" required>
+  <input type="password" id="deletePasswordKarya" placeholder="Password Karya" required>
+  <button type="submit">Hapus Karya</button>
+</form>
+</main>  
+  </section>  
+  
+  
+  <footer>
+    <p>&copy; 2025 DKV SMKN 1 Singgahan.</p>
+  </footer>
+
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
