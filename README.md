@@ -6,8 +6,7 @@
 
 ## 🧠 Tentang Proyek  
 Website DKV ini dibuat untuk menampilkan kumpulan proyek-karya dari siswa DKV. Tujuan utamanya:  
-- 📁 Menyediakan galeri visual yang menarik dan mudah diakses  
-- 🖥️ Memperlihatkan karya kreatif
+- 🖼️ Menyediakan galeri visual yang menarik dan mudah diakses  
 - 🌐 Memberikan platform online bagi siswa untuk menunjukkan kompetensi desain dan karya  
 - 📞 Mempermudah pengunjung untuk menghubungi jurusan atau melihat portofolio lebih lanjut  
 
