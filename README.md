@@ -29,5 +29,5 @@ Website DKV ini dibuat untuk menampilkan kumpulan proyek-karya dari siswa DKV. T
 - 📚 Bagian ‘Tentang Saya’ yang menampilkan profil dan kompetensi  
 - 📬 Halaman kontak untuk mengirim pesan 
 - 📱 Design responsif yang tampil baik di desktop maupun mobile  
-- ☁️ Uplod karya dengan menambahkan upload.html diakhir link [https://lyf297.github.io/website-dkv/uploa.html](https://lyf297.github.io/website-dkv/upload.html)
+- ☁️ Uplod karya dengan menambahkan upload.html diakhir link [https://lyf297.github.io/website-dkv/upload.html](https://lyf297.github.io/website-dkv/upload.html)
 ---
